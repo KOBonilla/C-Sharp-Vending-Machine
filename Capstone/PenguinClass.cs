@@ -10,13 +10,13 @@ namespace Capstone
     {
         public string ItemType { get; set; }
 
-        public PenguinClass(decimal price, string name, Dictionary<string, int> itemPosition, string itemType, int quantity) : base(price, name, itemPosition, quantity)
+        public PenguinClass(string slotLocation, decimal price, string name, string itemType, int quantity) : base(slotLocation, price, name, quantity)
         {
             ItemType = itemType;
         }
-        PenguinClass EmperorPenguin = new PenguinClass(.90M, "Emperor Penguin", Dictionary<string, int>("A", 1) itemPosition, "Penguin", 5);
-        PenguinClass MacaroniPenguin = new PenguinClass(.90M, "Macaroni Penguin", Dictionary<string, int>("A", 1) itemPosition, "Penguin", 5);
-        PenguinClass RockhopperPenguin = new PenguinClass(.90M, "Rockhopper Penguin", Dictionary<string, int>("A", 1) itemPosition, "Penguin", 5);
-        PenguinClass GalapagosPenguin = new PenguinClass(.90M, "Galapagos Penguin", Dictionary<string, int>("A", 1) itemPosition, "Penguin", 5);
+        //PenguinClass EmperorPenguin = new PenguinClass(.90M, "Emperor Penguin", Dictionary<string, int>("A", 1) itemPosition, "Penguin", 5);
+        //PenguinClass MacaroniPenguin = new PenguinClass(.90M, "Macaroni Penguin", Dictionary<string, int>("A", 1) itemPosition, "Penguin", 5);
+        //PenguinClass RockhopperPenguin = new PenguinClass(.90M, "Rockhopper Penguin", Dictionary<string, int>("A", 1) itemPosition, "Penguin", 5);
+        //PenguinClass GalapagosPenguin = new PenguinClass(.90M, "Galapagos Penguin", Dictionary<string, int>("A", 1) itemPosition, "Penguin", 5);
     }
 }

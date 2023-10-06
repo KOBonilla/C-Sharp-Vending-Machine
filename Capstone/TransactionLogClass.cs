@@ -8,9 +8,9 @@ namespace Capstone
 {
     public class TransactionLogClass
     {
-        public void TransactionLog();
-        public void VendingMachineDataFile();
-        public void SalesReport();
+        //public void TransactionLog();
+        //public void VendingMachineDataFile();
+        //public void SalesReport();
 
     }
 }

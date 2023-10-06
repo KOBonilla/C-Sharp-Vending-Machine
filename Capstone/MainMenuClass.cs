@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace Capstone
 {
-    public class MainMenuClass { }
-    public int DisplayVendingMachineItems();
-    public void Exit();
+    public class MainMenuClass 
+    {
+        public void DisplayVendingMachineItems()
+        {
+            List<string> vendingMachineItems = new List<string>();
+        }
+        public static void Exit()
+        {
+            Environment.Exit(0);
+        }
+    
+    }
+    
 }

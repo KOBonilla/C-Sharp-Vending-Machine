@@ -11,5 +11,9 @@ namespace Capstone
         public List<ItemsClass> ListOfItems { get; set; }
         public int Quantity { get; set; }
 
+        public InventoryClass(int  quantity)
+        {
+            Quantity = quantity;
+        }
     }
 }
