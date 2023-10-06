@@ -11,7 +11,7 @@ namespace Capstone
     {
         public List<Item> ReadVendingMachineData(string filePath)
         {
-            List<Item> products = new List<Item>();
+            List<Item> items = new List<Item>();
 
             try
             {
@@ -24,13 +24,12 @@ namespace Capstone
                         if (parts.Length == 4)
                         {
                             string slotLocation = parts[0];
-                            string productName = parts[1];
+                            string Name = parts[1];
                             decimal price = decimal.Parse(parts[2]);
                             string type = parts[3];
 
-                            // Create a Item instance and add it to the list
-                            Item product = new Item(slotLocation, productName, price, type);
-                            products.Add(product);
+                            Item item = new Item(slotLocation, Name, price, type);
+                            items.Add(item);
                         }
                     }
                 }
@@ -40,7 +39,7 @@ namespace Capstone
                 Console.WriteLine("Error reading vending machine data file: " + ex.Message);
             }
 
-            return products;
+            return items;
         }
     }
 }

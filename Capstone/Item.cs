@@ -23,7 +23,6 @@ namespace Capstone
             Type = type;
             Qty = 5;
         }
-
     }
 }
 

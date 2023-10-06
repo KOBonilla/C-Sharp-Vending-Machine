@@ -7,13 +7,8 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
-            string filePath = "vendingmachine.csv";
-            FileHandler fileHandler = new FileHandler();
-            List<Item> vendingMachineItems = fileHandler.ReadVendingMachineData(filePath);
-
-            Inventory inventory = new Inventory(vendingMachineItems);
-            inventory.PopulateInventory();
-            inventory.DisplayInventory();
+            VendingMachineClass vendingMachineClass = new VendingMachineClass(0);
+            vendingMachineClass.Run();
         }
     }
 }
