@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Capstone
 {
-    internal class PonyClass : ItemsClass
+    internal class PonyClass
     {
         public string ItemType { get; set; }
 
-        public PonyClass(string slotLocation, decimal price, string name, string itemType, int quantity) : base(slotLocation, price, name, quantity)
+        public PonyClass(string slotLocation, decimal price, string name, string itemType, int quantity)// : base(slotLocation, price, name, quantity)
         {
             ItemType = itemType;
         }

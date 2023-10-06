@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Capstone
 {
-    public class CatClass : ItemsClass
+    public class CatClass
     {
         public string ItemType { get; set; }
 
-        public CatClass(string slotLocation, decimal price, string name, string itemType, int quantity) : base(slotLocation, price, name, quantity)
+        public CatClass(string slotLocation, decimal price, string name, string itemType, int quantity)// : base(slotLocation, price, name, quantity)
         {
             ItemType = itemType;
         }

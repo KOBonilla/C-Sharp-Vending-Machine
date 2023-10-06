@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Capstone
 {
-    public class PenguinClass : ItemsClass
+    public class PenguinClass
     {
         public string ItemType { get; set; }
 
-        public PenguinClass(string slotLocation, decimal price, string name, string itemType, int quantity) : base(slotLocation, price, name, quantity)
+        public PenguinClass(string slotLocation, decimal price, string name, string itemType, int quantity)// : base(slotLocation, price, name, quantity)
         {
             ItemType = itemType;
         }
