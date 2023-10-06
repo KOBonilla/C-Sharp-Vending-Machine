@@ -34,7 +34,7 @@ namespace Capstone
             }
             return null;
         }
-        public static void DisplayInventory()
+        public void DisplayInventory()
         {
             Console.WriteLine("Current Inventory:");
             foreach (var item in vendingMachineItems)
@@ -43,7 +43,7 @@ namespace Capstone
             }
         }
         
-        public static void ItemInfo()
+        public void ItemInfo()
         {
             foreach (var item in vendingMachineItems)
             {

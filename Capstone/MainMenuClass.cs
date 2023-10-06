@@ -16,7 +16,11 @@ namespace Capstone
         {
             Environment.Exit(0);
         }
-    
+        public static void ClearScreen()
+        {
+            Console.Clear();
+        }
+
     }
     
 }

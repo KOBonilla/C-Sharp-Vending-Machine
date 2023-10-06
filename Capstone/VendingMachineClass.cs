@@ -33,22 +33,29 @@ namespace Capstone
                 switch (input2)
                 {
                     case "1":
+                        MainMenuClass.ClearScreen();
                         FeedMoney();
                         break;
 
                     case "2":
+                        MainMenuClass.ClearScreen();
                         SelectProduct();
                         break;
 
                     case "3":
+                        MainMenuClass.ClearScreen();
                         FinishTransaction();
                         break;
 
                     case "4":
+                        MainMenuClass.ClearScreen();
+
                         return;
 
                     default:
+                        MainMenuClass.ClearScreen();
                         Console.WriteLine("Please select an option above!");
+                        Console.ReadKey();
                         break;
                 }
             }
@@ -59,6 +66,7 @@ namespace Capstone
 
         public void FeedMoney()
         {
+            MainMenuClass.ClearScreen();
             Console.WriteLine("Enter dollar amount: ");
             decimal amountToAdd = decimal.Parse(Console.ReadLine());
             Balance += amountToAdd;
@@ -74,7 +82,7 @@ namespace Capstone
             {
                 Console.WriteLine("Available Products:");
 
-                Inventory.ItemInfo();
+                inventory.ItemInfo();
 
                 Console.Write("Enter the code of the product you want to purchase: ");
                 string inputCode = Console.ReadLine().ToUpper();
@@ -82,19 +90,23 @@ namespace Capstone
 
                 if (item == null)
                 {
-                    Console.WriteLine("Choose from the choices above! Please try again.");
+                    MainMenuClass.ClearScreen();
+                    return;
                 }
                 else if (item.Qty <= 0)
                 {
+                    MainMenuClass.ClearScreen();
                     Console.WriteLine("This product is sold out. Please choose another product.");
                 }
                 else if (Balance < item.Price)
                 {
+                    MainMenuClass.ClearScreen();
                     Console.WriteLine("Insufficient funds for this item.");
                 }
                 else
                 {
-                    Console.WriteLine($"Dispensing {item} for ${item.Price.ToString("0.00")}");
+                    MainMenuClass.ClearScreen();
+                    Console.WriteLine($"Dispensing {item.Name} for ${item.Price.ToString("0.00")}");
 
                     Balance -= item.Price;
 
@@ -116,7 +128,6 @@ namespace Capstone
                             Console.WriteLine("Enjoy your purchase!");
                             break;
                     }
-
                     Console.WriteLine($"Your current balance is: ${Balance.ToString("0.00")}");
                 }
             }
@@ -128,32 +139,60 @@ namespace Capstone
 
         public void FinishTransaction()
         {
-                int quarters = (int)(Balance / 0.25m);
-                Balance -= quarters * 0.25m;
+            Change();
 
-                int dimes = (int)(Balance / 0.10m);
-                Balance -= dimes * 0.10m;
+            decimal quarters = (Balance / 0.25m);
+            Balance -= quarters * 0.25m;
 
-                int nickels = (int)(Balance / 0.05m);
-                Balance -= nickels * 0.05m;
+            decimal dimes = (Balance / 0.10m);
+            Balance -= dimes * 0.10m;
 
-                Console.WriteLine("Change returned");
-                Console.WriteLine("Remaining balance: " + Balance.ToString("0.00"));
+            decimal nickels = (Balance / 0.05m);
+            Balance -= nickels * 0.05m;
 
-                Balance = 0;
+            Console.WriteLine("Change returned");
+            Console.WriteLine("Remaining balance: " + Balance.ToString("0.00"));
 
-                Console.WriteLine("Thank you for using Vendo-Matic 800! Come Again!");
+            Balance = 0;
+
+            Console.WriteLine("Thank you for using Vendo-Matic 800! Come Again!");
             Console.WriteLine("Press Enter to return to the main menu...");
             Console.ReadLine();
         }
 
+        public void Change()
+        {
+            decimal quarters = 0.25M;
+            decimal dimes = 0.10M;
+            decimal nickles = 0.05M;
 
 
+            int quartersChange = Convert.ToInt32(Math.Floor(Balance / quarters));
+            decimal remainingBalance = Balance - (quarters * quartersChange);
+            int dimesChange = Convert.ToInt32(Math.Floor(remainingBalance / dimes));
+            remainingBalance = remainingBalance - (dimes * dimesChange);
+            int nicklesChange = Convert.ToInt32(Math.Floor(remainingBalance / nickles));
+
+            Console.WriteLine($"Change: {Balance}");
+            Console.WriteLine("-----------------------------");
+            Console.WriteLine($"Quarters: {quartersChange}");
+            Console.WriteLine($"Dimes: {dimesChange}");
+            Console.WriteLine($"Nickles: {nicklesChange}");
+            Console.WriteLine("-----------------------------");
+        }
 
         public void Run()
         {
-            
+            string vendingMachineName = @" 
+             _    __               ___                __  ___           __    _          
+            | |  / /__  ____  ____/ (_)___  ____ _   /  |/  /___ ______/ /_  (_)___  ___ 
+            | | / / _ \/ __ \/ __  / / __ \/ __ `/  / /|_/ / __ `/ ___/ __ \/ / __ \/ _ \
+            | |/ /  __/ / / / /_/ / / / / / /_/ /  / /  / / /_/ / /__/ / / / / / / /  __/
+            |___/\___/_/ /_/\__,_/_/_/ /_/\__, /  /_/  /_/\__,_/\___/_/ /_/_/_/ /_/\___/ 
+                                         /____/                                          
 
+            ";
+            Console.WriteLine(vendingMachineName);
             string filePath = "vendingmachine.csv";
             FileHandler fileHandler = new FileHandler();
             List<Item> vendingMachineItems = fileHandler.ReadVendingMachineData(filePath);
@@ -164,35 +203,34 @@ namespace Capstone
             Console.WriteLine("Welcome to the CuteCo Inc. Vendo-Matic 800! Press Enter to continue: ");
             Console.ReadLine();
 
-            Console.WriteLine("Please select an option: ");
-            Console.WriteLine("1. Display Vending Machine Items");
-            Console.WriteLine("2. Purchase");
-            Console.WriteLine("3. Exit");
-
-            string input = Console.ReadLine();
-            switch (input)
+            while (true)
             {
-                case "1": 
-                    Inventory.DisplayInventory();
-                    break;
+                Console.WriteLine("Please select an option: ");
+                Console.WriteLine("1. Display Vending Machine Items");
+                Console.WriteLine("2. Purchase");
+                Console.WriteLine("3. Exit");
 
-                case "2": 
-                    PurchaseMenu();
-                    break;
+                string input = Console.ReadLine();
+                switch (input)
+                {
+                    case "1":
+                        inventory.DisplayInventory();
+                        Console.ReadKey();
+                        MainMenuClass.ClearScreen();
+                        break;
 
-                case "3": 
-                    Environment.Exit(0);
-                    break;
+                    case "2":
+                        MainMenuClass.ClearScreen();
+                        PurchaseMenu();
+                        break;
+
+                    case "3":
+                        MainMenuClass.ClearScreen();
+                        Console.WriteLine("Bad number. Try again.");
+                        Environment.Exit(0);
+                        break;
+                }
             }
         }
     }
 }
-//string vendingMachineName = @" 
-// _    __               ___                __  ___           __    _          
-//| |  / /__  ____  ____/ (_)___  ____ _   /  |/  /___ ______/ /_  (_)___  ___ 
-//| | / / _ \/ __ \/ __  / / __ \/ __ `/  / /|_/ / __ `/ ___/ __ \/ / __ \/ _ \
-//| |/ /  __/ / / / /_/ / / / / / /_/ /  / /  / / /_/ / /__/ / / / / / / /  __/
-//|___/\___/_/ /_/\__,_/_/_/ /_/\__, /  /_/  /_/\__,_/\___/_/ /_/_/_/ /_/\___/ 
-//                             /____/                                          
-
-//";
