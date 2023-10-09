@@ -8,7 +8,11 @@ namespace Capstone
 {
     public class VendingMachineClass
     {
-        private Inventory inventory;
+        public Inventory inventory;
+
+        // Initialized transactionLog
+        private TransactionLogClass transactionLog = new TransactionLogClass();
+
         public static decimal Balance { get; private set; } = 0;
 
         public VendingMachineClass(decimal initialBalance)
@@ -28,8 +32,9 @@ namespace Capstone
             Console.WriteLine("1. Feed Money");
             Console.WriteLine("2. Select Product");
             Console.WriteLine("3. Finish Transaction");
+            Console.WriteLine("4. Main Menu");
 
-            string input2 = Console.ReadLine();
+                string input2 = Console.ReadLine();
                 switch (input2)
                 {
                     case "1":
@@ -49,12 +54,12 @@ namespace Capstone
 
                     case "4":
                         MainMenuClass.ClearScreen();
-
+                        Run();
                         return;
 
                     default:
                         MainMenuClass.ClearScreen();
-                        Console.WriteLine("Please select an option above!");
+                        Console.WriteLine("Invalid input. Try again.");
                         Console.ReadKey();
                         break;
                 }
@@ -70,6 +75,10 @@ namespace Capstone
             Console.WriteLine("Enter dollar amount: ");
             decimal amountToAdd = decimal.Parse(Console.ReadLine());
             Balance += amountToAdd;
+
+            // Added LogFeedingMoney Method to FeedMoney
+            transactionLog.LogFeedingMoney(amountToAdd, Balance);
+
             Console.WriteLine("Your current balance is: " + Balance.ToString("0.00"));
         }
 
@@ -84,7 +93,8 @@ namespace Capstone
 
                 inventory.ItemInfo();
 
-                Console.Write("Enter the code of the product you want to purchase: ");
+                Console.WriteLine("Enter the code of the product you want to purchase: ");
+                Console.WriteLine("Press Enter to return To purchase menu.");
                 string inputCode = Console.ReadLine().ToUpper();
                 Item item = inventory.GetItemByCode(inputCode);
 
@@ -109,6 +119,10 @@ namespace Capstone
                     Console.WriteLine($"Dispensing {item.Name} for ${item.Price.ToString("0.00")}");
 
                     Balance -= item.Price;
+                    item.Qty -= 1;
+
+                    // Added LogPurchase Method to SelectProduct
+                    transactionLog.LogPurchase(item.Name, item.Price, Balance, item.SlotLocation);
 
                     switch (item.Type)
                     {
@@ -140,6 +154,9 @@ namespace Capstone
         public void FinishTransaction()
         {
             Change();
+
+            // Added LogFinishTransaction Method to FinishTransaction
+            transactionLog.LogFinishTransaction(Balance);
 
             decimal quarters = (Balance / 0.25m);
             Balance -= quarters * 0.25m;
@@ -214,7 +231,9 @@ namespace Capstone
                 switch (input)
                 {
                     case "1":
+                        MainMenuClass.ClearScreen();
                         inventory.DisplayInventory();
+                        Console.WriteLine("Press a key to continue.");
                         Console.ReadKey();
                         MainMenuClass.ClearScreen();
                         break;
@@ -226,9 +245,13 @@ namespace Capstone
 
                     case "3":
                         MainMenuClass.ClearScreen();
-                        Console.WriteLine("Bad number. Try again.");
                         Environment.Exit(0);
                         break;
+                    default:
+                        MainMenuClass.ClearScreen();
+                        Console.WriteLine("Invalid input. Try again.");
+                        break;
+
                 }
             }
         }

@@ -1,3 +1,4 @@
+using Capstone;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -20,15 +21,23 @@ namespace CapstoneTests
         [TestMethod]
         public void FeedMoney_AddsToBalance()
         {
-            vendingMachine.FeedMoney();
+            // Arrange
+            decimal initialBalance = 10.00m; // Starting balance
+            decimal amountToAdd = 5.00m; // Amount to add
+            VendingMachineClass vendingMachine = new VendingMachineClass(initialBalance);
 
-            Assert.AreEqual(20.00m, VendingMachineClass.Balance);
+            // Act
+            vendingMachine.FeedMoney(amountToAdd);
+
+            // Assert
+            decimal expectedBalance = initialBalance + amountToAdd;
+            Assert.AreEqual(expectedBalance, VendingMachineClass.Balance);
         }
 
         [TestMethod]
         public void SelectProduct_PurchasingItemUpdatesBalance()
         {
-            Item mockItem = new Item("A1", "Chips", 1.00m, "Snack", 10);
+            Item mockItem = new Item("A1", "Chips", 1.00m, "Snack");
 
             vendingMachine.inventory = new Inventory(new List<Item> { mockItem });
 
