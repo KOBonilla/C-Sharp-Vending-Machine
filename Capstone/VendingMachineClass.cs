@@ -255,5 +255,10 @@ namespace Capstone
                 }
             }
         }
+
+        public void FeedMoney(decimal amountToAdd)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
