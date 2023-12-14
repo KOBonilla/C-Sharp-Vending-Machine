@@ -1,3 +1,5 @@
+https://github.com/KOBonilla/c-sharp-minicapstonemodule1-team1/assets/125763819/116cb83e-cf75-4783-b97e-d53860253a1a
+
 ## Module 1 Capstone - Vending Machine Software
 
 You're developing an application for the newest vending machine distributor,
